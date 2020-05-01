@@ -1,0 +1,65 @@
+<%- include('../partials/header') %>
+
+<div class="container">
+    <div class="row ">
+        <div class="col-md-3 text-center">
+            <div class="thumbnail">
+                <img src="<%= user.avatar %> " alt="user profile img">
+                <div class="caption">
+                    <h3><%= user.firstName + " " + user.lastName %> </h3>
+                    <a href="mailto:<%= user.email %> ">User Email</a>
+                </div>
+            </div>
+            <div>
+                <form style="text-align: left;">
+                    <div class="form-group ">
+                        <label for="">First Name </label>
+                        <input class="form-control form-focus" type="text" name="firstName"
+                            value="<%= user.firstName %> " disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Last Name </label>
+                        <input class="form-control form-focus" type="text" name="lastName" value="<%= user.lastName %> "
+                            disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email </label>
+                        <input class="form-control form-focus" type="email" name="email" value="<%= user.email %> "
+                            disabled>
+                    </div>
+                </form>
+            </div>
+            <% if(currentUser && user.id === currentUser.id){ %>
+            <a class="btn btn-primary" href="/users/<%= user.id %>/edit">Edit</a>
+            <%} %>
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <% if(currentUser && user.id === currentUser.id){ %>
+                    <h3>Your Entries </h3>
+                    <% } else { %>
+                    <h3><%= user.username.toUpperCase() %> ' s Entries</h3>
+                    <% } %>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <% if(areas.length === 0){ %>
+                        <p>No Entries found</p>
+                        <% } %>
+                        <% areas.forEach(function(area){ %>
+                        <a href="/area/<%= area.id %> ">
+                            <button style="border: none;" type="button" class="list-group-item"><%= area.name %>
+                            </button>
+                        </a>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,52 @@
+<%- include("../partials/header") %>
+
+<style>
+    @media (min-width: 768px) {
+        .thumbnail img {
+            object-fit: cover;
+            height: 200px;
+            width: 100%;
+        }
+    }
+</style>
+
+
+
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Welcome To Chennai!</h1>
+            <p>View out hand-picked area from all over the chennai</p>
+            <a class="btn btn-primary btn-lg" href="/area/new">
+                Add a new area
+            </a>
+        </div>
+    </header>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Our Most Popular Areas in Chennai!</h3>
+        </div>
+    </div>
+
+    <div class="row text-center" style="display: flex; flex-wrap: wrap;">
+        <% areas.forEach(function (area) { %>
+        <div class="col-md-3 col-sm-6">
+            <div class="thumbnail">
+                <img src="<%= area.image %>" alt="">
+                <div class="caption">
+                    <h4><%= area.name %></h4>
+                    <div>
+                        <span class="badge label-primary"><i class="fas fa-thumbs-up"></i>
+                            <%= area.likes.length %></span>
+                    </div>
+                </div>
+                <p>
+                    <a href="/area/<%= area._id %> " class="btn btn-primary">More Info</a>
+                </p>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+    <%- include("../partials/footer") %>
+</div>
