@@ -10,7 +10,7 @@ var express = require('express'),
   User = require('./models/user'),
   methodOverride = require('method-override'),
   flash = require('connect-flash');
-
+require('dotenv').config();
 
 app.use(methodOverride('_method'));
 app.locals.moment = require('moment');
@@ -21,13 +21,24 @@ var areaRoutes = require('./routes/areas'),
 
 //seed the database
 // seedDB();
-
-mongoose.connect('mongodb://localhost/chennaiv5', {
+var url = process.env.MONGO_ATLAS;
+mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
   useCreateIndex: true
-});
+}).then(() => {
+  console.log('Connected to DB');
+}).catch(err => {
+  console.log('ERROR:', err.message);
+})
+
+// mongoose.connect('mongodb://localhost/chennaiv5', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useFindAndModify: false,
+//   useCreateIndex: true
+// });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
